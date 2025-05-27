@@ -1,0 +1,19 @@
+<h2>📛 Utilisateurs avec le nom "toto"</h2>
+<table border>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% username.forEach((user) => { %>
+      <tr>
+        <td><%= user.prenom %></td>
+        <td><%= user.nom %></td>
+        <td><%= user.email %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

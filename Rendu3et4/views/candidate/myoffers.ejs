@@ -1,0 +1,23 @@
+<h1><%= title %></h1>
+
+<p>nombre de mes offres : <%= nboffers %></p>
+<h2> Toutes mes offres</h2>
+
+<table border>
+  <thead>
+    <tr>
+      <th>numero_offre</th>
+      <th>date_de_candidature</th>
+      <th>piece_jointe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% myoffers.forEach((offer) => { %>
+      <tr>
+        <td><%= offer.numero_offre %></td>
+        <td><%= offer.date_de_candidature %></td>
+        <td><%= offer.piece_jointe %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

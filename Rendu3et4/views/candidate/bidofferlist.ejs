@@ -1,0 +1,93 @@
+<!--
+<h1><%= title %></h1>
+
+<h2>👥 Toutes les offres</h2>
+<table border>
+  <thead>
+    <tr>
+      <th>numero</th>
+      <th>date_valide</th>
+      <th>indication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% offer.forEach((offer) => { %>
+      <tr>
+        <td><%= offer.numero %></td>
+        <td><%= offer.date_valide %></td>
+        <td><%= offer.indication %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+-->
+<!doctype html>
+<html lang="fr">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="../css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <div class="row p-4 bg-dark text-light">
+                    <h1>Site de Recrutement - SR10</h1>
+                    <h2>Liste des offres</h2>
+                </div>
+                <nav>
+                    <div class="row py-2 bg-light border-top border-bottom">
+                        <div class="col px-5">
+                            <div class="container btn-group" role="group">
+                                <a role="button" class="btn btn-dark" aria-disabled="true">Offres</a>
+                                <a href="proposals.html" role="button" class="btn btn-outline-dark">Candidatures</a>
+                                <a href="../account.html" role="button" class="btn btn-outline-dark">Compte</a>
+                            </div>
+                        </div>
+                        <div class="col px-5">
+                            <div class="d-flex justify-content-center">
+                                <a href="../index.html" role="button" class="btn btn-danger">Déconnexion</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row vw-100">
+                <div class="col-2 py-2 bg-light bg-gradient">
+                    <aside>
+                        <!-- <div class="hstack"> -->
+                            <!-- <div class="container"> -->
+                                <h3>Options de recherche</h3>
+                                <div class="row justify-content-center">Nom</div>
+                                <div class="row justify-content-center">Salaire</div>
+                                <div class="row justify-content-center">Type de poste</div>
+                                <div class="row justify-content-center">Lieux</div>
+                            <!-- </div> -->
+                            <!-- <div class="vr"></div> -->
+                        <!-- </div> -->
+                    </aside>
+                </div>
+
+                <% offer.forEach((offer) => { %>
+                <div class="col-10">
+                    <div class="row border py-2 justify-content-center">
+                        <div class="d-flex justify-content-center">
+                            <h3 class="m-2">Offre n°<%= offer.numero %></h3>
+                            <a href="offer_detail.html" role="button" class="btn btn-dark m-2">Voir les détails</a>
+                        </div>
+                        date valide : <%= offer.date_valide %> 
+                        <br>indicatioin : <%= offer.indication %>
+                    </div>
+                </div>
+                <% }) %>
+
+            </div>
+        </div>
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom border-top">
+                <a role="button" class="btn btn-dark">Devenir recruteur</a>
+            </section>
+        </footer>
+    </body>
+</html>

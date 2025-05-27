@@ -1,0 +1,26 @@
+
+<h1> liste des formulaire des <%= typerecherche %> <%= staterecherche %></h1>
+
+<table border>
+  <thead>
+    <tr>
+      <th>matricule</th>
+      <th>administrateur</th>
+      <th>entreprise</th>
+      <th>etat</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% form.forEach((user) => { %>
+      <tr>
+        <td><%= user.matricule %></td>
+        <td><%= user.administrateur %></td>
+        <td><%= user.entreprise %></td>
+        <td><%= user.etat %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+
