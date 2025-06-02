@@ -7,6 +7,14 @@ module.exports={
                 callback(results);
             });
         },
+
+    getoffre: function (numero, callback) {
+        db.query("SELECT * FROM Offre WHERE numero = ?", [numero], function (err, results) {
+                if (err) throw err;
+                callback(results[0]);
+            });
+    },
+
     //modele pour l'affichage des candidature dun candidat 
     myoffer: function(id_candidate,callback){
             db.query("SELECT * FROM Candidature WHERE id_candidat = ?",[id_candidate], function(err,results){
