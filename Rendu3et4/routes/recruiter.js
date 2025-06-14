@@ -2,6 +2,8 @@ var express = require('express');
 var userModel = require('../model/utilisateur.js');
 var proposalsModel = require('../model/proposal.js');
 var offersModel = require('../model/offer.js');
+var candidateModel = require('../model/candidat.js')
+var recruiterModel = require('../model/recruteur.js')
 var postFilesModel = require('../model/postFile.js');
 var router = express.Router();
 
@@ -66,17 +68,6 @@ router.get('/post_files', async (req, res, next) => {
 
 });
 
-router.get('/delete_offer/:numero', async (req, res, next) => {
-    let data = await offersModel.read(req.params.numero);
-
-    res.render('recruiter/offer/delete', { 
-        title: 'Suppression d\'offre',
-        id: data.numero,
-		
-    });
-});
-
-
 router.get('/delete_post_file/:numero', async (req, res, next) => {
     let data = await postFilesModel.read(req.params.numero);
 
@@ -92,5 +83,69 @@ router.get('/create_post_file', (req, res, next) => {
 
     res.render('recruiter/post_file/create', {title: "Création de fiche de poste"});
 });
+
+
+router.get('/create_offer', async function (req, res, next) {
+    const data = await new Promise((resolve)=> 
+        recruiterModel.getpostfiles(resolve)
+    );
+
+    res.render('recruiter/offer/create', {
+        title: "Création d offre",
+        postFiles: data
+    
+    });
+});
+
+router.post('/create_offer', async function (req, res, next) {
+    const result = await new Promise((resolve)=> 
+        recruiterModel.addoffer(req.body.numero, req.body.etat, req.body.date_validite, req.body.indication, req.body.nb_piece, req.body.postfile, req.body.recruteur, resolve)
+    );
+
+    res.redirect('/recruiter/offers')
+});
+
+router.get('/edit_offer/:numero', async function (req, res, next) {
+    const offer = await new Promise((resolve) =>
+        candidateModel.getoffre(req.params.numero, resolve)
+    );
+    const postfiles = await new Promise((resolve)=> 
+        recruiterModel.getpostfiles(resolve)
+    );
+
+    res.render('recruiter/offer/edit', { 
+        title: 'Modifier l\'offre',
+        offer: offer,
+        postFiles: postfiles,
+    });
+});
+
+router.post('/edit_offer/:numero', async function (req, res, next) {
+    const offer = await new Promise((resolve) =>
+        recruiterModel.editoffer(req.params.numero, req.body.etat, req.body.date_validite, req.body.indication, req.body.nbr_piece, req.body.fiche_de_poste, req.body.recruteur, resolve)
+    );
+
+    res.redirect('/recruiter/offers')
+})
+
+router.get('/delete_offer/:numero', async function (req, res, next) {
+    const offer = await new Promise((resolve) =>
+        candidateModel.getoffre(req.params.numero, resolve)
+    );
+
+    res.render('recruiter/offer/delete', { 
+        title: 'Suppression d\'offre',
+        id: offer.numero,
+    });
+});
+
+router.post('/delete_offer/:numero', async function (req, res, next) {
+    const offer = await new Promise((resolve) =>
+        recruiterModel.deleteoffer(req.params.numero, resolve)
+    );
+
+    res.redirect('/recruiter/offers')
+})
+
 
 module.exports = router;
