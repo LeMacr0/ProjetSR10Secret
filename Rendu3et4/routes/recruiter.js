@@ -147,5 +147,27 @@ router.post('/delete_offer/:numero', async function (req, res, next) {
     res.redirect('/recruiter/offers')
 })
 
+router.get('/detail_offer/:numero', async function (req, res, next) {
+    const offerid = req.params.numero
+    const offer = await new Promise((resolve) =>
+        candidateModel.getoffre(offerid, resolve)
+    );
+
+    const proposals = await new Promise((resolve) =>
+        recruiterModel.getproposals(offerid, resolve)
+    );
+
+    const postfile = await new Promise((resolve) =>
+        recruiterModel.getpostfile(offer.fiche_de_poste, resolve)
+    );
+
+    res.render('recruiter/offer/detail', {
+        title : "Details d une offre",
+        offre : offer,
+        fiche_de_poste : postfile,
+        candidatures : proposals
+    });
+})
+
 
 module.exports = router;

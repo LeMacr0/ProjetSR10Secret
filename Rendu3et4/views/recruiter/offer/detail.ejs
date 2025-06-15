@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <%- include('../../header'); %>
+                <nav>
+                    <div class="row py-2 bg-light border-top border-bottom">
+                        <div class="col px-5">
+                            <div class="d-flex justify-content-end">
+                                <a href="/recruiter/offers" role="button" class="btn btn-danger">Retour</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="container-md p-4">
+            <h1 class="mb-5">Offre n°<%= offre.numero %> (<%= fiche_de_poste.intitule %>, <%= fiche_de_poste.statut_poste %>, <%= fiche_de_poste.type_metier %>)</h1>
+            <p>Sous la responsabilité de <%= fiche_de_poste.responsable %></p>
+            <p>A <%= fiche_de_poste.lieux %></p>
+            <p><%= fiche_de_poste.rythme %> h par semaine</p>
+            <p>Salaire <%= fiche_de_poste.salaire %> € par mois</p>
+            <p><em>Description du poste:</em> <%= fiche_de_poste.description %></p>
+
+            <br>
+            <p>Valide jusqu'au <%= offre.date_validite %></p>
+            
+            <br>
+            <p>Pièces demandées (<%= offre.nbr_piece %>)</p>
+
+            <div>
+                <% candidatures.forEach((candidature) => { %>
+                <tr>
+                    <td><%= candidature.id_candidat %></td>
+                    <td><%= candidature.date_de_candidature %></td>
+                    <a href="/recruiter/detail_candidature/<%= candidature.numero %>" role="button" class="btn btn-dark m-2">Voir les détails</a>
+                </tr>
+                <% }) %>
+            </div>
+        </section>
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <section class="d-flex justify-content-center justify-content-lg-around p-4 border-bottom border-top">
+                <a role="button" href="/recruiter/edit_offer/<%= offre.id %>" class="btn btn-success">Editer</a>
+                <a role="button" href="/recruiter/delete_offer/<%= offre.id %>" class="btn btn-danger">Supprimer</a>
+            </section>
+        </footer>
+    </body>
+</html>

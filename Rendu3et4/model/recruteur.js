@@ -29,8 +29,22 @@ module.exports={
         });
     },
 
+    getpostfile : function(postfile, callback) {
+        db.query("SELECT * FROM Fiche_poste WHERE numero=?", [postfile], function(err,results){
+            if(err) throw err;
+            callback(results);
+        });
+    },
+
     getpostfiles : function(callback) {
         db.query("SELECT * FROM Fiche_poste", function(err,results){
+            if(err) throw err;
+            callback(results);
+        });
+    },
+
+    getproposals : function(offre, callback) {
+        db.query("SELECT * FROM Candidature WHERE num_offre=?", [offre], function(err,results){
             if(err) throw err;
             callback(results);
         });

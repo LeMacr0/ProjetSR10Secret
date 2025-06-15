@@ -27,12 +27,13 @@
                     </aside>
                 </div>
                 <div class="col-10">
-                    <%- include("../../list_display", {
-                        list: offers,
-                        title: (offer) => `Offre n°${offer.numero}`,
-                        buttons: (offer) => [{href: `/recruiter/offer_detail/${offer.numero}`, name: "Voir les détails"}],
-                        info: (offer) => [offer.nom]
-                    }); %>
+                    <% offers.forEach((offer) => { %>
+                    <tr>
+                        <td><%= offer.numero %></td>
+                        <td><%= offer.date_validite %></td>
+                        <a href="detail_offer/<%= offer.numero %>" role="button" class="btn btn-dark m-2">Voir les détails</a>
+                    </tr>
+                    <% }) %>
                 </div>
             </div>
         </div>
